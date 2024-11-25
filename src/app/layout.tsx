@@ -1,7 +1,11 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Rubik } from "next/font/google";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
+import ReactQueryClientProvider from "@/providers/ReactQueryClientProvider";
+import type { Metadata } from "next";
+import { Rubik } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+import "./globals.css";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -17,8 +21,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="lemonade">
-      <body className={cn(rubik.className, "antialiased")}>{children}</body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="en" data-theme="lemonade">
+        <body className={cn(rubik.className, "antialiased")}>
+          <div className="min-h-screen">
+            <Toaster
+              position="bottom-right"
+              reverseOrder={false}
+              toastOptions={{ duration: 5000 }}
+            />
+            <Navbar />
+            {children}
+          </div>
+          <Footer />
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }
