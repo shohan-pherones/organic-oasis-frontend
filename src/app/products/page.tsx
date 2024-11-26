@@ -18,7 +18,7 @@ const ProductsPage = () => {
 
   return (
     <main>
-      <Products />
+      <Products products={data.products} />
     </main>
   );
 };
