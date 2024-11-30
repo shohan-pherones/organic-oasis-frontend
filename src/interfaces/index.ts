@@ -25,3 +25,15 @@ export interface IProductsResponse extends MessageResponse {
 export interface IProductResponse extends MessageResponse {
   product: IProduct;
 }
+
+export interface ICartItem extends IProduct {
+  quantity: number;
+}
+
+export interface ICartState {
+  items: ICartItem[];
+  shippingCost: number;
+  tax: number;
+  subtotal: number;
+  totalPrice: number;
+}

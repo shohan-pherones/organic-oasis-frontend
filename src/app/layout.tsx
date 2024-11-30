@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import ReactQueryClientProvider from "@/providers/ReactQueryClientProvider";
+import ReduxStoreProvider from "@/providers/ReduxStoreProvider";
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -24,16 +25,18 @@ export default function RootLayout({
     <ReactQueryClientProvider>
       <html lang="en" data-theme="lemonade">
         <body className={cn(rubik.className, "antialiased")}>
-          <div className="min-h-screen">
-            <Toaster
-              position="bottom-right"
-              reverseOrder={false}
-              toastOptions={{ duration: 5000 }}
-            />
-            <Navbar />
-            {children}
-          </div>
-          <Footer />
+          <ReduxStoreProvider>
+            <div className="min-h-screen">
+              <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+                toastOptions={{ duration: 5000 }}
+              />
+              <Navbar />
+              {children}
+            </div>
+            <Footer />
+          </ReduxStoreProvider>
         </body>
       </html>
     </ReactQueryClientProvider>

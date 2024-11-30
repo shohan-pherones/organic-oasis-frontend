@@ -2,17 +2,20 @@
 
 import Loading from "@/components/Loading";
 import { useGetProduct } from "@/hooks/product/useGetProduct";
+import { addItem } from "@/redux/features/cart/cartSlice";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const { productId } = useParams();
   const { data, isLoading } = useGetProduct(productId as string);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   if (isLoading) {
     return <Loading />;
@@ -40,7 +43,10 @@ const ProductDetailsPage = () => {
     setQuantity((prev) => prev + 1);
   };
 
-  const handleAddToBasket = () => {};
+  const handleAddToCart = () => {
+    dispatch(addItem({ ...data.product, quantity }));
+    router.push("/cart");
+  };
 
   return (
     <main>
@@ -82,7 +88,7 @@ const ProductDetailsPage = () => {
           <p>{data.product.description}</p>
           <div className="grid grid-cols-2 gap-5 items-center">
             <h3 className="text-2xl md:text-3xl font-bold">
-              ${data.product.price}
+              ${(data.product.price * quantity).toFixed(2)}
             </h3>
             <div className="flex items-center justify-end">
               <button
@@ -107,17 +113,17 @@ const ProductDetailsPage = () => {
               Go Back
             </button>
             <button
-              onClick={handleAddToBasket}
+              onClick={handleAddToCart}
               disabled={data.product.stock === 0}
               className="btn btn-primary"
             >
-              Add to Basket
+              Add to Cart
             </button>
           </div>
           <p className="text-sm opacity-50">
-            Once an item has been added to the basket, you will not be able to
+            Once an item has been added to the cart, you will not be able to
             modify its quantity. Please ensure the desired quantity is selected
-            before adding the item to your basket.
+            before adding the item to your cart.
           </p>
         </div>
       </section>
