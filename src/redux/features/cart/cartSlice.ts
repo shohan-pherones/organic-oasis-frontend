@@ -22,10 +22,10 @@ export const cartSlice = createSlice({
 
       if (existingItem) {
         existingItem.quantity += action.payload.quantity;
-        toast.success("Quantity increased");
+        toast.success("The quantity has been successfully updated.");
       } else {
         state.items.push(action.payload);
-        toast.success("Item added");
+        toast.success("The item has been successfully added to your cart.");
       }
 
       cartSlice.caseReducers.calculateSubtotal(state);
@@ -36,7 +36,7 @@ export const cartSlice = createSlice({
 
     removeItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item._id != action.payload);
-      toast.success("Item removed");
+      toast.success("The item has been successfully removed.");
 
       cartSlice.caseReducers.calculateSubtotal(state);
       cartSlice.caseReducers.calculateShippingCost(state);

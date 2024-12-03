@@ -2,7 +2,7 @@
 
 import Loading from "@/components/Loading";
 import Products from "@/components/Products";
-import { useGetProducts } from "@/hooks/product/useGetProducts";
+import { useGetProducts } from "@/hooks/useGetProducts";
 import { notFound } from "next/navigation";
 
 const ProductsPage = () => {

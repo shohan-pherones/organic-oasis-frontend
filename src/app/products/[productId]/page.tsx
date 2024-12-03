@@ -1,7 +1,7 @@
 "use client";
 
 import Loading from "@/components/Loading";
-import { useGetProduct } from "@/hooks/product/useGetProduct";
+import { useGetProduct } from "@/hooks/useGetProduct";
 import { addItem } from "@/redux/features/cart/cartSlice";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
