@@ -23,6 +23,36 @@ const CartPage = () => {
 
   return (
     <main>
+      {items.length === 0 && (
+        <section className="wrapper min-h-screen flex flex-col gap-2 items-center justify-center text-center">
+          <div className="w-48 md:w-80 overflow-hidden">
+            <Image
+              src="/images/empty-cart.png"
+              alt="Empty cart"
+              width={1280}
+              height={720}
+            />
+          </div>
+          <h3 className="text-2xl md:text-3xl font-bold">
+            Your cart is currently empty
+          </h3>
+          <p>
+            Explore our products and find something you love to add to your
+            cart!
+          </p>
+          <div className="mt-5 flex items-center justify-center gap-5 flex-wrap">
+            <Link href="/products" className="btn btn-primary">
+              Browse Products
+            </Link>
+            <button onClick={() => router.back()} className="btn">
+              Go Back
+            </button>
+            <Link href="/" className="btn">
+              Back to Home
+            </Link>
+          </div>
+        </section>
+      )}
       {items.length > 0 && (
         <section className="wrapper grid grid-cols-1 xl:grid-cols-3 gap-10 xl:min-h-screen">
           <div className="xl:col-span-2">
