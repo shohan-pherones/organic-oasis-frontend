@@ -37,3 +37,39 @@ export interface ICartState {
   subtotal: number;
   totalPrice: number;
 }
+
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
+export interface IRegistration extends ILogin {
+  username: string;
+  name: string;
+  image: string;
+  address: string;
+}
+
+export interface IUser {
+  _id: string;
+  username: string;
+  name: string;
+  email: string;
+  image: string;
+  address: string;
+  role: string;
+  createdAt?: Date;
+}
+
+export interface IAuth extends MessageResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface IAuthResponse extends IAuth {
+  user: IUser;
+}
+
+export interface IAuthStorage extends IAuth {
+  user: IUser | null;
+}
