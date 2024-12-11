@@ -1,11 +1,15 @@
 "use client";
 
+import useAuth from "@/hooks/useAuth";
+import { useSignUp } from "@/hooks/useSignUp";
 import { IRegistration } from "@/interfaces";
 import { registerSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const {
@@ -16,9 +20,32 @@ const SignUpPage = () => {
     resolver: zodResolver(registerSchema),
   });
   const router = useRouter();
+  const { mutate, isLoading } = useSignUp();
+  const { saveCredentialsDispatcher } = useAuth();
 
   const onSubmit = (data: IRegistration) => {
-    console.log(data);
+    const formData = new FormData();
+
+    formData.append("username", data.username);
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("address", data.address);
+    formData.append("image", data.image);
+
+    mutate(formData, {
+      onSuccess: (data) => {
+        saveCredentialsDispatcher(data);
+        router.push("/");
+      },
+      onError: (err) => {
+        if (axios.isAxiosError(err) && err.response) {
+          toast.error(err.response.data?.message || "An error occured");
+        } else {
+          toast.error(err.message || "An unexpected error occurred");
+        }
+      },
+    });
   };
 
   return (
@@ -159,8 +186,12 @@ const SignUpPage = () => {
               </div>
             )}
           </label>
-          <button type="submit" className="mt-3 btn btn-primary">
-            Submit
+          <button
+            disabled={isLoading}
+            type="submit"
+            className="mt-3 btn btn-primary"
+          >
+            {isLoading ? "Submitting..." : "Submit"}
           </button>
           <p className="mt-1">
             Already have an account?{" "}
