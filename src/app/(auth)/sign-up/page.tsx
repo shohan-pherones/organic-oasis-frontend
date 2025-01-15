@@ -69,7 +69,6 @@ const SignUpPage = () => {
               </div>
             )}
           </label>
-
           <label htmlFor="name" className="form-control w-full">
             <div className="label">
               <span className="label-text">Name</span>
@@ -88,7 +87,6 @@ const SignUpPage = () => {
               </div>
             )}
           </label>
-
           <label htmlFor="email" className="form-control w-full">
             <div className="label">
               <span className="label-text">Email</span>
@@ -107,7 +105,6 @@ const SignUpPage = () => {
               </div>
             )}
           </label>
-
           <label htmlFor="password" className="form-control w-full">
             <div className="label">
               <span className="label-text">Password</span>
@@ -126,7 +123,6 @@ const SignUpPage = () => {
               </div>
             )}
           </label>
-
           <label htmlFor="image" className="form-control w-full">
             <div className="label">
               <span className="label-text">Image</span>
@@ -145,7 +141,6 @@ const SignUpPage = () => {
               </div>
             )}
           </label>
-
           <label htmlFor="address" className="form-control w-full">
             <div className="label">
               <span className="label-text">Address</span>
