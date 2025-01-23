@@ -1,11 +1,12 @@
 "use client";
 
 import SectionTitle from "@/components/SectionTitle";
+import useAuth from "@/hooks/useAuth";
 import useCart from "@/hooks/useCart";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const CartPage = () => {
   const {
@@ -17,9 +18,15 @@ const CartPage = () => {
     removeItemDispatcher,
     clearCartDispatcher,
   } = useCart();
+  const { user } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
-  const handleCheckout = () => {};
+  const handleCheckout = () => {
+    if (!user) {
+      return router.push(`/sign-in?redirect=${pathname}`);
+    }
+  };
 
   return (
     <main>

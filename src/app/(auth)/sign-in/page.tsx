@@ -8,7 +8,7 @@ import { ILogin } from "@/interfaces";
 import { loginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -23,13 +23,15 @@ const SignInPage = () => {
   const { saveCredentialsDispatcher } = useAuth();
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("redirect");
 
   const onSubmit = (data: ILogin) => {
     mutate(data, {
       onSuccess: (res) => {
         saveCredentialsDispatcher(res);
         setTimeout(() => {
-          router.push("/");
+          router.push(redirectPath || "/");
         }, 100);
       },
       onError: (err) => {
@@ -99,7 +101,13 @@ const SignInPage = () => {
           <p className="mt-1">
             Do not have an account?{" "}
             <button
-              onClick={() => router.push("/sign-up")}
+              onClick={() =>
+                router.push(
+                  redirectPath
+                    ? `/sign-up?redirect=${redirectPath}`
+                    : "/sign-up"
+                )
+              }
               type="button"
               className="link link-hover font-bold"
             >
