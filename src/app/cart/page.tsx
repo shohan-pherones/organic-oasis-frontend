@@ -26,6 +26,12 @@ const CartPage = () => {
     if (!user) {
       return router.push(`/sign-in?redirect=${pathname}`);
     }
+
+    // create order data
+
+    // send a req. to server
+
+    // if success, push to confirm order page
   };
 
   return (
